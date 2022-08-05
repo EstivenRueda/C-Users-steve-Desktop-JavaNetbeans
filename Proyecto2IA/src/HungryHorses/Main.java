@@ -41,8 +41,10 @@ public class Main extends javax.swing.JFrame {
     private ImageIcon arregloDeImagenes[] = new ImageIcon[6];
 
     public Main() {
-        super("Proyecto Inteligencia Artificial Hungry Horses");
+        super("Hungry Horses");
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/victoria.png")).getImage());
+        
       
         //NIveles:
         comboDificultad.addItem("");
@@ -410,9 +412,7 @@ public class Main extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -589,11 +589,14 @@ public class Main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "ingresar fila y columna para jugar");
             } else {
                 String ex = campoFila.getText();
-                String ey = traductorLetras(campoColumna.getText());
-                 if(ey.matches("[+-]?\\d*(\\.\\d+)?")){
+               String ey = campoColumna.getText();
+                 if(ey.matches("[0-9]+")){
                      JOptionPane.showMessageDialog(null, "debe ingresar una letra" , "Advertencia",
                     JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src/imagenes/estadoJuego.png"));
-                }
+                     
+                }else{
+                  ey = traductorLetras(campoColumna.getText());
+                 }
                 
                 int entradax = Integer.parseInt(ex);
                 int entraday = Integer.parseInt(ey);
