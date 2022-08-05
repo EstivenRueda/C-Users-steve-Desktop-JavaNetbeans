@@ -69,6 +69,54 @@ public class Main extends javax.swing.JFrame {
         crearTablero(raiz.getTablero());
         btnJugador2.setEnabled(false);
     }
+    public String traductorNumeros(int celda){
+        String fila = "";
+        
+        switch(celda){
+            case 0:{ fila = "A"; break;}
+            case 1:{ fila = "B"; break;}
+            case 2:{ fila = "C"; break;}
+            case 3:{ fila = "D"; break;}
+            case 4:{ fila = "E"; break;}
+            case 5:{ fila = "F"; break;}
+            case 6:{ fila = "G"; break;}
+            case 7:{ fila = "H"; break;}
+            default:{
+                System.out.println("Opcion no valida");
+            }
+        }
+    
+        return fila;
+    }
+    
+    
+    public String traductorLetras(String celda){
+        String fila = "";
+        
+        switch(celda){
+            case "A":{ fila = "0"; break;}
+            case "a":{ fila = "0"; break;}
+            case "b":{ fila = "1"; break;}
+            case "B":{ fila = "1"; break;}
+            case "C":{ fila = "2"; break;}
+            case "c":{ fila = "2"; break;}
+            case "D":{ fila = "3"; break;}
+            case "d":{ fila = "3"; break;}
+            case "E":{ fila = "4"; break;}
+            case "e":{ fila = "4"; break;}
+            case "F":{ fila = "5"; break;}
+            case "f":{ fila = "5"; break;}
+            case "G":{ fila = "6"; break;}
+            case "g":{ fila = "6"; break;}
+            case "H":{ fila = "7"; break;}
+            case "h":{ fila = "7"; break;}
+            default:{
+                System.out.println("Opcion no valida");
+            }
+        }
+    
+        return fila;
+    }
 
     public void crearTablero(int[][] matriz) {
 
@@ -362,7 +410,9 @@ public class Main extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -411,7 +461,6 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jList1.setBackground(new java.awt.Color(242, 242, 242));
-        jList1.setBorder(null);
         jList1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "0", " ", " ", " ", "1", " ", " ", " ", "2", " ", " ", " ", "3", " ", " ", " ", "4", " ", " ", " ", "5", " ", " ", " ", "6", " ", " ", " ", "7", " " };
@@ -459,7 +508,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -467,7 +516,7 @@ public class Main extends javax.swing.JFrame {
                                 .addGap(1, 1, 1)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))))
         );
@@ -507,8 +556,9 @@ public class Main extends javax.swing.JFrame {
             Point nuevop = punt[i];
             int ax = (int) nuevop.getX();
             int ay = (int) nuevop.getY();
+            String ay1 = traductorNumeros(ay);
         
-            txtJugadas = "[" + ax + "," + ay + "]";
+            txtJugadas = "[" + ax + "," + ay1 + "]";
             jugadas.append("la jugadas son: " + txtJugadas + "\n");
           }
             jugadas.append("\n"+ "--------------------------------------------"+ "\n");
@@ -539,9 +589,15 @@ public class Main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "ingresar fila y columna para jugar");
             } else {
                 String ex = campoFila.getText();
-                String ey = campoColumna.getText();
+                String ey = traductorLetras(campoColumna.getText());
+                 if(ey.matches("[+-]?\\d*(\\.\\d+)?")){
+                     JOptionPane.showMessageDialog(null, "debe ingresar una letra" , "Advertencia",
+                    JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src/imagenes/estadoJuego.png"));
+                }
+                
                 int entradax = Integer.parseInt(ex);
                 int entraday = Integer.parseInt(ey);
+              
                 boolean val = false;
 
                 for (int i = 0; i < punt.length; i++) {
@@ -606,6 +662,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
+    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugador1;
